@@ -1,29 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
+import { Button, Alert } from "react-bootstrap";
 import axios from "axios";
 
-function App(){
+function App() {
+  const [flag, setFlag] = useState(false);
+  const [count, setCount]= useState(0);
+  const handleClick = () => {
+    setCount(count => count + 1);
+  };
 
-  const [loading, setLoading] = useState(false);
-  const [posts, setPosts] = useState([]);
-
-  useEffect(()=> {
-
-    const loadPost = async () =>{
-      setLoading(true);
-      const response = await axios.get("https://jsonplaceholder.typicode.com/posts/");
-      setPosts(response.data);
-      setLoading(false);
-    }
-
-    loadPost();
-  }, []);
-
-  return(
+  return (
     <>
-      {loading ? (<h1>Loading...</h1>) : (posts.map(items =>  <h4>{items.title}</h4>))}
+      <Button variant="primary" onClick={handleClick}>
+        Clicked Me
+      </Button><br/>
+      <Alert variant="primary">You clicked {count} times.</Alert>
+      
     </>
-  )
-  
+  );
 }
 
 export default App;
